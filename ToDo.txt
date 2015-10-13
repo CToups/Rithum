@@ -1,0 +1,18 @@
+Current Goals:
+
+* Instantiate recorder prior to record button press
+	* After recording, either be able to record again directly, or play back (or both)
+* Visualizer (look into just getting it in there in some way)
+
+
+
+Long Term Goals:
+
+* Multiple tracks
+* Record over tracks
+* Mute
+* Multiple tracks recording simultaenously
+* Naming tracks to export
+* Click track
+* Effects?
+* Multiple screens: landing screen, new project/project select, main recording, save/export
