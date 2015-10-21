@@ -1,26 +1,22 @@
 package com.example.ct.audiocapture;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-
 import android.os.Bundle;
 import android.os.Environment;
-
+import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.Toast;
+
 import java.io.IOException;
 
 
@@ -28,6 +24,7 @@ public class MainActivity extends Activity {
     Button play,stop,record;
     private MediaRecorder myAudioRecorder;
     private String outputFile = null;
+    private String outputTemp = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,40 @@ public class MainActivity extends Activity {
 
         stop.setEnabled(false);
         play.setEnabled(false);
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";;
+
+        //Helper methods to get input for output filename
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Enter your session name");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Log.w("audiocapture", "1");
+                Editable value = input.getText();
+                Log.w("audiocapture", "2");
+                outputTemp = value.toString();
+                Log.w("audiocapture", "3");
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+
+
+
+
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + outputTemp +".3gp";
+        Log.w("audiocapture", "4");
 
         myAudioRecorder=new MediaRecorder();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -77,11 +107,19 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 myAudioRecorder.stop();
-                myAudioRecorder.release();
-                myAudioRecorder  = null;
+                myAudioRecorder.reset();
+                //myAudioRecorder.release();
+                //myAudioRecorder  = null;
+
+                //Boiler plate to allow us to record over existing track OR play track upon stop
+                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+                myAudioRecorder.setOutputFile(outputFile);
 
                 stop.setEnabled(false);
                 play.setEnabled(true);
+                record.setEnabled(true); //originally set to false
 
                 Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
             }

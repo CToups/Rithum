@@ -15,7 +15,7 @@
 
         <activity
             android:name="com.example.ct.audiocapture.MainActivity"
-            android:label="Audio Record Test" >
+            android:label="@string/app_name" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
