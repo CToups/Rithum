@@ -38,57 +38,12 @@ public class MainActivity extends Activity {
         stop.setEnabled(false);
         play.setEnabled(false);
 
-        //Helper methods to get input for output filename
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setTitle("Enter your session name");
-
-        // Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        alert.setView(input);
-
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                Log.w("audiocapture", "1");
-                Editable value = input.getText();
-                Log.w("audiocapture", "2");
-                //outputTemp = value.toString();
-                outputTemp = input.getText().toString();
-                Log.w("audiocapture", "3");
-                //Ok so outputTemp is definitely being stored properly, this log proves it
-                Log.w("audiocapture", outputTemp);
-
-                //Crazy Test
-                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + outputTemp + ".3gp";
-                myAudioRecorder.setOutputFile(outputFile);
-            }
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
-
-
-        myAudioRecorder =new MediaRecorder();
-
-        alert.show();
-
-
-        Log.w("audiocapture", "4");
+        getFileName();
 
         myAudioRecorder=new MediaRecorder();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-
-
-
-        Log.w("audiocapture", "quickTest");
-        Log.w("audiocapture", outputFile + "hey this is output file!");
-
 
         record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +116,39 @@ public class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void getFileName(){
+        //Helper methods to get input for output filename
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Enter your session name");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                outputTemp = input.getText().toString();
+
+                //Ok so outputTemp is definitely being stored properly, this log proves it
+                Log.w("audiocapture", outputTemp);
+
+                //Crazy Test
+                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + outputTemp + ".3gp";
+                myAudioRecorder.setOutputFile(outputFile);
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
     }
 
     @Override
