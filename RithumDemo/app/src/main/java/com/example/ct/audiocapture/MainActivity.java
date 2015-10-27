@@ -96,6 +96,9 @@ public class MainActivity extends Activity {
             public void onClick(View v) throws IllegalArgumentException,SecurityException,IllegalStateException {
                 MediaPlayer m = new MediaPlayer();
 
+                play.setEnabled(false);
+                stop.setEnabled(true);
+
                 try {
                     m.setDataSource(outputFile);
                 }
@@ -105,6 +108,7 @@ public class MainActivity extends Activity {
                 }
 
                 try {
+                    m.setLooping(true);
                     m.prepare();
                 }
 
