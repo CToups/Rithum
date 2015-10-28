@@ -66,17 +66,5 @@
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:max="4000"
-        android:progressDrawable="@drawable/progressbar"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>

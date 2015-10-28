@@ -4,6 +4,9 @@ package com.example.ct.audiocapture;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -15,16 +18,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 
 public class MainActivity extends Activity {
     Button play,stop,record;
     private MediaRecorder myAudioRecorder;
+    private MediaPlayer m = new MediaPlayer();
     private String outputFile = null;
     private String outputTemp = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,36 +77,43 @@ public class MainActivity extends Activity {
 
                 record.setEnabled(false);
                 stop.setEnabled(true);
-
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
+
             }
         });
 
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myAudioRecorder.stop();
-                myAudioRecorder.reset();
-                //myAudioRecorder.release();
-                //myAudioRecorder  = null;
 
-                //Boiler plate to allow us to record over existing track OR play track upon stop
-                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+                //Stop looping if we are stopping track playback. Has no effect on recording
+                if(m.isLooping() == true) {
+                    m.setLooping(false);
+                }
+                else {
+                    myAudioRecorder.stop();
+                    myAudioRecorder.reset();
+                    //myAudioRecorder.release();
+                    //myAudioRecorder  = null;
 
+                    //Boiler plate to allow us to record over existing track OR play track upon stop
+                    myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                    myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                    myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+
+                    Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
+                }
                 stop.setEnabled(false);
                 play.setEnabled(true);
                 record.setEnabled(true); //originally set to false
 
-                Toast.makeText(getApplicationContext(), "Audio recorded successfully",Toast.LENGTH_LONG).show();
             }
         });
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) throws IllegalArgumentException,SecurityException,IllegalStateException {
-                MediaPlayer m = new MediaPlayer();
+                m = new MediaPlayer();
 
                 play.setEnabled(false);
                 stop.setEnabled(true);
@@ -120,6 +139,10 @@ public class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public double getAmplitude(){
+        return myAudioRecorder.getMaxAmplitude() /100;
     }
 
     public void getFileName(){
@@ -154,6 +177,9 @@ public class MainActivity extends Activity {
 
         alert.show();
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
