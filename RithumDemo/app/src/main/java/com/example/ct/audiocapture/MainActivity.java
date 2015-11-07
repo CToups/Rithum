@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 
         //Necessary to get an image as button
         record=(ImageButton)findViewById(R.id.myButton);
-        newRecEn=(ImageButton)findViewById(R.id.myButton1);
+        //newRecEn=(ImageButton)findViewById(R.id.myButton1);
 
         stop.setEnabled(false);
         play.setEnabled(false);
@@ -66,6 +66,13 @@ public class MainActivity extends Activity {
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //ImageButton Stuff
+                record.setImageResource(R.drawable.recbuttenabled);
+
+
+
+
                 try {
                     myAudioRecorder.prepare();
                     myAudioRecorder.start();
@@ -92,6 +99,9 @@ public class MainActivity extends Activity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //ImageButton Stuff
+                record.setImageResource(R.drawable.recbuttdisabled);
 
                 //Stop looping if we are stopping track playback. Has no effect on recording
                 if(m.isLooping() == true) {

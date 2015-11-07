@@ -52,7 +52,6 @@
         android:layout_height="wrap_content"
         android:text="play"
         android:id="@+id/button3"
-        android:layout_alignBottom="@+id/myButton1"
         android:layout_alignStart="@+id/button5" />
 
     <Button
@@ -87,15 +86,6 @@
         android:src="@drawable/recbuttdisabled"
         android:layout_alignTop="@+id/textView2"
         android:layout_alignParentStart="true" />
-
-    <ImageButton android:id="@+id/myButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="100dip"
-        android:padding="0dip"
-        android:src="@drawable/recbuttenabled"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/myButton" />
 
 
 </RelativeLayout>
