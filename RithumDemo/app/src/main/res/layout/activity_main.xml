@@ -42,21 +42,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/button3"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="play"
-        android:id="@+id/button3"
-        android:layout_alignStart="@+id/button5" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Record"
         android:id="@+id/button4"
         android:layout_below="@+id/myButton"
@@ -67,8 +52,8 @@
         android:layout_height="wrap_content"
         android:text="play"
         android:id="@+id/button5"
-        android:layout_below="@+id/button2"
-        android:layout_toStartOf="@+id/button2" />
+        android:layout_alignTop="@+id/button4"
+        android:layout_toStartOf="@+id/button6" />
 
     <Button
         android:layout_width="wrap_content"
@@ -87,5 +72,24 @@
         android:layout_alignTop="@+id/textView2"
         android:layout_alignParentStart="true" />
 
+    <ImageButton android:id="@+id/myPlayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dip"
+        android:padding="0dip"
+        android:src="@drawable/playbuttdisabled"
+        android:layout_above="@+id/button5"
+        android:layout_toStartOf="@+id/button6" />
+
+    <ImageButton android:id="@+id/myStopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="109dip"
+        android:padding="0dip"
+        android:src="@drawable/stopbutton"
+        android:layout_above="@+id/button6"
+        android:layout_alignTop="@+id/myPlayButton"
+        android:layout_alignParentEnd="true" />
+    
 
 </RelativeLayout>

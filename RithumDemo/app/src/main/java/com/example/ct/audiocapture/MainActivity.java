@@ -32,8 +32,8 @@ import android.widget.ImageButton;
 
 
 public class MainActivity extends Activity {
-    Button play,stop;
-    ImageButton record, newRecEn;
+    //Button stop;
+    ImageButton stop, play, record, newRecEn;
     private MediaRecorder myAudioRecorder;
     private MediaPlayer m = new MediaPlayer();
     private String outputFile = null;
@@ -45,12 +45,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        play=(Button)findViewById(R.id.button3);
-        stop=(Button)findViewById(R.id.button2);
+        //play=(Button)findViewById(R.id.button3);
+        //stop=(Button)findViewById(R.id.button2);
         //record=(Button)findViewById(R.id.button);
 
         //Necessary to get an image as button
         record=(ImageButton)findViewById(R.id.myButton);
+        play=(ImageButton)findViewById(R.id.myPlayButton);
+        stop=(ImageButton)findViewById(R.id.myStopButton);
         //newRecEn=(ImageButton)findViewById(R.id.myButton1);
 
         stop.setEnabled(false);
@@ -69,6 +71,7 @@ public class MainActivity extends Activity {
 
                 //ImageButton Stuff
                 record.setImageResource(R.drawable.recbuttenabled);
+                play.setImageResource(R.drawable.playbuttenabled);
 
 
 
@@ -102,6 +105,7 @@ public class MainActivity extends Activity {
 
                 //ImageButton Stuff
                 record.setImageResource(R.drawable.recbuttdisabled);
+                play.setImageResource(R.drawable.playbuttdisabled);
 
                 //Stop looping if we are stopping track playback. Has no effect on recording
                 if(m.isLooping() == true) {
@@ -130,6 +134,10 @@ public class MainActivity extends Activity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) throws IllegalArgumentException,SecurityException,IllegalStateException {
+
+                //ImageButton Stuff
+                play.setImageResource(R.drawable.playbuttenabled);
+
                 //Don't want to record and play at the same time here
                 record.setEnabled(false);
 
