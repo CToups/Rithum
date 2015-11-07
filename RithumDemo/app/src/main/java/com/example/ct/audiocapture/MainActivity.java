@@ -32,8 +32,8 @@ import android.widget.ImageButton;
 
 
 public class MainActivity extends Activity {
-    Button play,stop,record;
-    ImageButton newRec, newRecEn;
+    Button play,stop;
+    ImageButton record, newRecEn;
     private MediaRecorder myAudioRecorder;
     private MediaPlayer m = new MediaPlayer();
     private String outputFile = null;
@@ -47,10 +47,10 @@ public class MainActivity extends Activity {
 
         play=(Button)findViewById(R.id.button3);
         stop=(Button)findViewById(R.id.button2);
-        record=(Button)findViewById(R.id.button);
+        //record=(Button)findViewById(R.id.button);
 
         //Necessary to get an image as button
-        newRec=(ImageButton)findViewById(R.id.myButton);
+        record=(ImageButton)findViewById(R.id.myButton);
         newRecEn=(ImageButton)findViewById(R.id.myButton1);
 
         stop.setEnabled(false);
