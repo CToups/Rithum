@@ -77,6 +77,7 @@ public class MainActivity extends Activity {
 
                 record.setEnabled(false);
                 stop.setEnabled(true);
+                play.setEnabled(false);
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
 
             }
@@ -113,6 +114,9 @@ public class MainActivity extends Activity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) throws IllegalArgumentException,SecurityException,IllegalStateException {
+                //Don't want to record and play at the same time here
+                record.setEnabled(false);
+
                 m = new MediaPlayer();
 
                 play.setEnabled(false);
