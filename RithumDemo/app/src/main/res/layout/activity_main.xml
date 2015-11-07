@@ -88,5 +88,21 @@
         android:layout_alignTop="@+id/button5"
         android:layout_alignStart="@+id/button2" />
 
+    <ImageButton android:id="@+id/myButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_marginLeft="10dip"
+        android:padding="0dip"
+        android:src="@drawable/recbuttdisabled" />
+
+    <ImageButton android:id="@+id/myButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dip"
+        android:layout_marginLeft="100dip"
+        android:padding="0dip"
+        android:src="@drawable/recbuttenabled" />
+
 
 </RelativeLayout>

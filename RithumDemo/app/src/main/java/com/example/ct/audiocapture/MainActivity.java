@@ -28,10 +28,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends Activity {
     Button play,stop,record;
+    ImageButton newRec, newRecEn;
     private MediaRecorder myAudioRecorder;
     private MediaPlayer m = new MediaPlayer();
     private String outputFile = null;
@@ -46,6 +48,10 @@ public class MainActivity extends Activity {
         play=(Button)findViewById(R.id.button3);
         stop=(Button)findViewById(R.id.button2);
         record=(Button)findViewById(R.id.button);
+
+        //Necessary to get an image as button
+        newRec=(ImageButton)findViewById(R.id.myButton);
+        newRecEn=(ImageButton)findViewById(R.id.myButton1);
 
         stop.setEnabled(false);
         play.setEnabled(false);
