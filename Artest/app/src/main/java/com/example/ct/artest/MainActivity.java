@@ -90,6 +90,7 @@ public class MainActivity extends Activity {
     private void writeAudioDataToFile() {
         // Write the output audio in byte
 
+        //was initially saving as .pcm
         //String filePath = "/sdcard/voice8K16bitmono.3gp";
         //Trying some crazy shit
         File filePath = new File(Environment.getExternalStorageDirectory(), "test.3gp");
