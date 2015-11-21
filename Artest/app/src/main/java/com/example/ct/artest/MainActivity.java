@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -88,7 +90,11 @@ public class MainActivity extends Activity {
     private void writeAudioDataToFile() {
         // Write the output audio in byte
 
-        String filePath = "/sdcard/voice8K16bitmono.3gp";
+        //String filePath = "/sdcard/voice8K16bitmono.3gp";
+        //Trying some crazy shit
+        File filePath = new File(Environment.getExternalStorageDirectory(), "test.3gp");
+
+
         short sData[] = new short[BufferElements2Rec];
 
         FileOutputStream os = null;
