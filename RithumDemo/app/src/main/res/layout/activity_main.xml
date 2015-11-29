@@ -6,14 +6,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/background_1"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="               Rithum Audio Recording"
+        android:typeface="serif"
+        android:text="                  Rithum"
         android:id="@+id/textView"
-        android:textSize="30dp"
+        android:textSize="42dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
@@ -39,29 +41,7 @@
         android:layout_alignRight="@+id/textView2"
         android:layout_alignEnd="@+id/textView2" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Record"
-        android:id="@+id/button4"
-        android:layout_below="@+id/myButton"
-        android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="play"
-        android:id="@+id/button5"
-        android:layout_alignTop="@+id/button4"
-        android:layout_toStartOf="@+id/button6" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stop"
-        android:id="@+id/button6"
-        android:layout_alignTop="@+id/button5"
-        android:layout_alignEnd="@+id/textView" />
 
     <ImageButton android:id="@+id/myButton"
         android:layout_width="wrap_content"
@@ -78,8 +58,9 @@
         android:layout_marginLeft="100dip"
         android:padding="0dip"
         android:src="@drawable/playbuttdisabled"
-        android:layout_above="@+id/button5"
-        android:layout_toStartOf="@+id/button6" />
+        android:layout_marginEnd="64dp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignEnd="@+id/myStopButton" />
 
     <ImageButton android:id="@+id/myStopButton"
         android:layout_width="wrap_content"
@@ -87,7 +68,6 @@
         android:layout_marginLeft="109dip"
         android:padding="0dip"
         android:src="@drawable/stopbutton"
-        android:layout_above="@+id/button6"
         android:layout_alignTop="@+id/myPlayButton"
         android:layout_alignParentEnd="true" />
     
