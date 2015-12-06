@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
     private String outputTemp = null;
 
     private boolean currentlyRecording = false;
+    private boolean hasRecordedOnce = false;
 
     /*
     File vPath = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -89,9 +90,19 @@ public class MainActivity extends Activity {
         //myAudioRecorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
 
 
+
+
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (hasRecordedOnce) {
+                    overwriteDialog();
+                }
+
+                else {
+                    hasRecordedOnce = true;
+                }
 
                 currentlyRecording = true;
 
@@ -127,10 +138,9 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 //Stop looping if we are stopping track playback. Has no effect on recording
-                if(m.isLooping() == true) {
+                if (m.isLooping() == true) {
                     m.setLooping(false);
-                }
-                else {
+                } else {
                     myAudioRecorder.stop();
                     myAudioRecorder.reset();
 
@@ -154,12 +164,11 @@ public class MainActivity extends Activity {
 
 
                 //Trying to send "audio recorded successfully" message
-                if (currentlyRecording){
+                if (currentlyRecording) {
                     Toast.makeText(getApplicationContext(), "Track Successfully Recorded",
                             Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), "Stopped",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Stopped", Toast.LENGTH_SHORT).show();
                 }
                 currentlyRecording = false;
 
@@ -224,12 +233,40 @@ public class MainActivity extends Activity {
         });
     }
 
+<<<<<<< Updated upstream
     //Helper methods to choose file name and quality
+=======
+
+
+    public void overwriteDialog() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Are you sure you wish to overwrite?");
+
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Toast.makeText(getApplicationContext(), "Track will be overwritten",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setNegativeButton("Save recording and exit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                System.exit(0);
+                Log.w("audiocapture", "user declined to overwrite and exited app");
+            }
+        });
+        alert.show();
+    }
+
+
+
+
+>>>>>>> Stashed changes
     public void getFileName(){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle("Enter your session name");
+        alert.setTitle("Enter your session name and type");
 
         // Set an EditText view to get user input
         final EditText input = new EditText(this);
