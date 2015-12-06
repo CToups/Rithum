@@ -244,7 +244,7 @@ public class MainActivity extends Activity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Are you sure you wish to overwrite?");
 
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alert.setPositiveButton("Overwrite", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
                 Toast.makeText(getApplicationContext(), "Track will be overwritten",
