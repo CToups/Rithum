@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
 
                 else {
                     hasRecordedOnce = true;
-                }
+
 
                 currentlyRecording = true;
 
@@ -129,7 +129,7 @@ public class MainActivity extends Activity {
                 stop.setEnabled(true);
                 play.setEnabled(false);
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_SHORT).show();
-
+                }
             }
         });
 
@@ -152,7 +152,7 @@ public class MainActivity extends Activity {
                     myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
                     //myAudioRecorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
                 }
-                x`
+
                 //ImageButton Stuff
                 record.setImageResource(R.drawable.recbuttdisabled);
                 play.setImageResource(R.drawable.playbuttdisabled);
@@ -233,9 +233,6 @@ public class MainActivity extends Activity {
         });
     }
 
-<<<<<<< Updated upstream
-    //Helper methods to choose file name and quality
-=======
 
 
     public void overwriteDialog() {
@@ -246,6 +243,8 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Toast.makeText(getApplicationContext(), "Track will be overwritten",
                         Toast.LENGTH_SHORT).show();
+                hasRecordedOnce = false;
+                record.performClick();
             }
         });
 
@@ -259,9 +258,6 @@ public class MainActivity extends Activity {
     }
 
 
-
-
->>>>>>> Stashed changes
     public void getFileName(){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
