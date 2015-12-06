@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
 
                 else {
                     hasRecordedOnce = true;
-                }
+
 
                 currentlyRecording = true;
 
@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
                 stop.setEnabled(true);
                 play.setEnabled(false);
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_SHORT).show();
-
+                }
             }
         });
 
@@ -237,9 +237,12 @@ public class MainActivity extends Activity {
         });
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> origin/master
 
 
     public void overwriteDialog() {
@@ -251,6 +254,8 @@ public class MainActivity extends Activity {
 
                 Toast.makeText(getApplicationContext(), "Track will be overwritten",
                         Toast.LENGTH_SHORT).show();
+                hasRecordedOnce = false;
+                record.performClick();
             }
         });
 
@@ -264,8 +269,11 @@ public class MainActivity extends Activity {
     }
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/master
     public void getFileName(){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
