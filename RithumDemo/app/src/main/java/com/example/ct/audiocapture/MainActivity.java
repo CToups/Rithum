@@ -126,10 +126,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                //ImageButton Stuff
-                record.setImageResource(R.drawable.recbuttdisabled);
-                play.setImageResource(R.drawable.playbuttdisabled);
-
                 //Stop looping if we are stopping track playback. Has no effect on recording
                 if(m.isLooping() == true) {
                     m.setLooping(false);
@@ -146,6 +142,12 @@ public class MainActivity extends Activity {
                     myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
                     //myAudioRecorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
                 }
+                x`
+                //ImageButton Stuff
+                record.setImageResource(R.drawable.recbuttdisabled);
+                play.setImageResource(R.drawable.playbuttdisabled);
+
+
                 stop.setEnabled(false);
                 play.setEnabled(true);
                 record.setEnabled(true); //originally set to false
@@ -222,9 +224,8 @@ public class MainActivity extends Activity {
         });
     }
 
-
+    //Helper methods to choose file name and quality
     public void getFileName(){
-        //Helper methods to get input for output filename
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
