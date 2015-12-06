@@ -97,9 +97,6 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 if (hasRecordedOnce) {
-                    record.setEnabled(false);
-                    record.performClick();
-                    record.setImageResource(R.drawable.recbuttdisabled);
                     overwriteDialog();
 
                 }
@@ -237,12 +234,10 @@ public class MainActivity extends Activity {
         });
     }
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> origin/master
+
 
 
     public void overwriteDialog() {
@@ -269,11 +264,10 @@ public class MainActivity extends Activity {
     }
 
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> origin/master
+
+
     public void getFileName(){
 
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
