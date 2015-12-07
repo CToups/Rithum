@@ -1,34 +1,26 @@
 package com.example.ct.audiocapture;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.media.AudioFormat;
-import android.media.AudioRecord;
-import android.media.AudioTrack;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import android.widget.ImageButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 
 public class MainActivity extends Activity {
@@ -38,9 +30,11 @@ public class MainActivity extends Activity {
     private MediaPlayer m = new MediaPlayer();
     private String outputFile = null;
     private String outputTemp = null;
-
     private boolean currentlyRecording = false;
     private boolean hasRecordedOnce = false;
+
+    private Switch myLoopSwitch;
+
 
     /*
     File vPath = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -58,6 +52,29 @@ public class MainActivity extends Activity {
         //play=(Button)findViewById(R.id.button3);
         //stop=(Button)findViewById(R.id.button2);
         //record=(Button)findViewById(R.id.button);
+
+        //Loop switch stuff. Leaving things that don't hurt. Commenting those that do.
+        //It'd be nice to eventually get this working.
+        //Problem is when you hit stop it crashes.
+        myLoopSwitch = (Switch) findViewById(R.id.myLoopSwitch);
+        myLoopSwitch.setChecked(false);
+        myLoopSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                /*
+                if (isChecked) {
+                    m.setLooping(true);
+                }
+                else {
+                    m.setLooping(false);
+                }
+                */
+            }
+        });
+
+
 
         //Creates the two directories where audio files will be saved
         File vDir = new File(Environment.getExternalStorageDirectory()+
@@ -90,6 +107,8 @@ public class MainActivity extends Activity {
         //myAudioRecorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
 
 
+        //Loop stuff
+
 
 
         record.setOnClickListener(new View.OnClickListener() {
@@ -98,40 +117,38 @@ public class MainActivity extends Activity {
 
                 if (hasRecordedOnce) {
                     overwriteDialog();
-
                 }
 
                 else {
                     hasRecordedOnce = true;
 
+                    currentlyRecording = true;
 
-                currentlyRecording = true;
+                    //ImageButton Stuff
+                    record.setImageResource(R.drawable.recbuttenabled);
+                    play.setImageResource(R.drawable.playbuttenabled);
 
-                //ImageButton Stuff
-                record.setImageResource(R.drawable.recbuttenabled);
-                play.setImageResource(R.drawable.playbuttenabled);
+                    try {
+                        myAudioRecorder.prepare();
+                        myAudioRecorder.start();
+                    }
 
-                try {
-                    myAudioRecorder.prepare();
-                    myAudioRecorder.start();
+                    catch (IllegalStateException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    record.setEnabled(false);
+                    stop.setEnabled(true);
+                    play.setEnabled(false);
+                    Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-                catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-
-                record.setEnabled(false);
-                stop.setEnabled(true);
-                play.setEnabled(false);
-                Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_SHORT).show();
-                }
-            }
         });
 
         stop.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +157,7 @@ public class MainActivity extends Activity {
 
                 //Stop looping if we are stopping track playback. Has no effect on recording
                 if (m.isLooping() == true) {
+                    myLoopSwitch.setChecked(false);
                     m.setLooping(false);
                 } else {
                     myAudioRecorder.stop();
@@ -158,11 +176,9 @@ public class MainActivity extends Activity {
                 record.setImageResource(R.drawable.recbuttdisabled);
                 play.setImageResource(R.drawable.playbuttdisabled);
 
-
                 stop.setEnabled(false);
                 play.setEnabled(true);
                 record.setEnabled(true); //originally set to false
-
 
                 //Trying to send "audio recorded successfully" message
                 if (currentlyRecording) {
@@ -172,13 +188,19 @@ public class MainActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Stopped", Toast.LENGTH_SHORT).show();
                 }
                 currentlyRecording = false;
-
             }
         });
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) throws IllegalArgumentException,SecurityException,IllegalStateException {
+
+
+                //Just doing this for looks. It's pointless really. Delete this
+                //******************
+                myLoopSwitch.setChecked(true);
+                //******************
+
 
                 currentlyRecording = false;
 
@@ -201,14 +223,15 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                 }
 
+                m.setLooping(true);
+
                 try {
-                    m.setLooping(true);
                     m.prepare();
                 }
-
                 catch (IOException e) {
                     e.printStackTrace();
                 }
+
 
                 m.start();
                 Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_SHORT).show();
@@ -234,12 +257,6 @@ public class MainActivity extends Activity {
         });
     }
 
-
-
-
-
-
-
     public void overwriteDialog() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Are you sure you wish to overwrite?");
@@ -262,11 +279,6 @@ public class MainActivity extends Activity {
         });
         alert.show();
     }
-
-
-
-
-
 
     public void getFileName(){
 
@@ -294,7 +306,6 @@ public class MainActivity extends Activity {
                 myAudioRecorder.setOutputFile(outputFile);
             }
         });
-
 
         alert.setNeutralButton("Music (high quality)", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -329,7 +340,6 @@ public class MainActivity extends Activity {
 
         alert.show();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
