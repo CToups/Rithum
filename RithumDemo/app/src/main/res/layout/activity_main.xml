@@ -46,36 +46,29 @@
     <ImageButton android:id="@+id/myButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:padding="0dip"
         android:src="@drawable/recbuttdisabled"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignParentStart="true"
         android:background="@null"
-        android:gravity="bottom" />
+
+        android:layout_below="@+id/myStopButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp" />
 
     <ImageButton android:id="@+id/myPlayButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dip"
-        android:padding="0dip"
         android:src="@drawable/playbuttdisabled"
-        android:layout_marginEnd="64dp"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignEnd="@+id/myStopButton"
         android:background="@null"
-        android:gravity="bottom"/>
+        android:layout_below="@+id/imageView"
+        android:layout_alignStart="@+id/myStopButton" />
 
     <ImageButton android:id="@+id/myStopButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="109dip"
-        android:padding="0dip"
-        android:src="@drawable/stopnew3"
-        android:layout_alignTop="@+id/myPlayButton"
-        android:layout_alignParentEnd="true"
+        android:src="@drawable/stopbutton"
         android:background="@null"
-        android:gravity="bottom"/>
+        android:layout_below="@+id/myPlayButton"
+        android:layout_alignStart="@+id/myButton"
+        android:layout_marginTop="93dp" />
     
 
 </RelativeLayout>
