@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MainActivity extends Activity {
     //Button stop;
+    FloatingActionButton myFab;
     ImageButton stop, play, record, newRecEn;
     private MediaRecorder myAudioRecorder;
     private MediaPlayer m = new MediaPlayer();
@@ -86,6 +88,7 @@ public class MainActivity extends Activity {
 
 
         //Necessary to get an image as button
+        myFab=(FloatingActionButton)findViewById(R.id.myFab);
         record=(ImageButton)findViewById(R.id.myButton);
         play=(ImageButton)findViewById(R.id.myPlayButton);
         stop=(ImageButton)findViewById(R.id.myStopButton);
@@ -237,7 +240,19 @@ public class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_SHORT).show();
             }
         });
+
+        myFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+    //            Toast.makeText(getBaseContext(), "FAB Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
+
 
     public double getAmplitude(){
         return myAudioRecorder.getMaxAmplitude() /100;
@@ -347,6 +362,7 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
