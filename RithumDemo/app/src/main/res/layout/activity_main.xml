@@ -80,13 +80,13 @@
         android:layout_alignStart="@+id/myStopButton"
         android:layout_marginTop="39dp" />
 
-    <android.support.design.widget.FloatingActionButton
+   <ImageButton
         android:id="@+id/myFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/add"
-        android:layout_gravity="bottom|end"
-        android:layout_alignTop="@+id/myButton"
+        android:background="@null"
+        android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/textView" />
 
 

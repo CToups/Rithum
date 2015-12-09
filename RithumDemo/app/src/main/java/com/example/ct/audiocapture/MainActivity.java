@@ -26,8 +26,8 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MainActivity extends Activity {
     //Button stop;
-    FloatingActionButton myFab;
-    ImageButton stop, play, record, newRecEn;
+    //FloatingActionButton myFab;
+    ImageButton stop, play, record, myFab;
     private MediaRecorder myAudioRecorder;
     private MediaPlayer m = new MediaPlayer();
     private String outputFile = null;
@@ -88,7 +88,8 @@ public class MainActivity extends Activity {
 
 
         //Necessary to get an image as button
-        myFab=(FloatingActionButton)findViewById(R.id.myFab);
+        //myFab=(FloatingActionButton)findViewById(R.id.myFab);
+        myFab=(ImageButton)findViewById(R.id.myFab);
         record=(ImageButton)findViewById(R.id.myButton);
         play=(ImageButton)findViewById(R.id.myPlayButton);
         stop=(ImageButton)findViewById(R.id.myStopButton);
@@ -118,40 +119,42 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if (hasRecordedOnce) {
-                    overwriteDialog();
+
+                //What if we haven't set the file name?
+                if (outputFile == null) {
+                    recreate();
+                } else {
+
+                    //Show overwrite menu if track already recorded
+                    if (hasRecordedOnce) {
+                        overwriteDialog();
+                    } else {
+                        hasRecordedOnce = true;
+
+                        currentlyRecording = true;
+
+                        //ImageButton Stuff
+                        record.setImageResource(R.drawable.recbuttenabled);
+                        play.setImageResource(R.drawable.playbuttenabled);
+
+                        try {
+                            myAudioRecorder.prepare();
+                            myAudioRecorder.start();
+                        } catch (IllegalStateException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+
+                        record.setEnabled(false);
+                        stop.setEnabled(true);
+                        play.setEnabled(false);
+                        Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-                else {
-                    hasRecordedOnce = true;
-
-                    currentlyRecording = true;
-
-                    //ImageButton Stuff
-                    record.setImageResource(R.drawable.recbuttenabled);
-                    play.setImageResource(R.drawable.playbuttenabled);
-
-                    try {
-                        myAudioRecorder.prepare();
-                        myAudioRecorder.start();
-                    }
-
-                    catch (IllegalStateException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    record.setEnabled(false);
-                    stop.setEnabled(true);
-                    play.setEnabled(false);
-                    Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_SHORT).show();
-                    }
-                }
+            }
         });
 
         stop.setOnClickListener(new View.OnClickListener() {
