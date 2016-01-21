@@ -204,6 +204,20 @@ public class MainActivity extends Activity {
                 play.setEnabled(false);
                 stop.setEnabled(true);
 
+                //to detect when file is finished playing
+                m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        //ImageButton Stuff
+                        record.setImageResource(R.drawable.recbuttdisabled);
+                        play.setImageResource(R.drawable.playbuttdisabled);
+
+                        stop.setEnabled(false);
+                        play.setEnabled(true);
+                        record.setEnabled(true); //originally set to false
+                    }
+                });
+
                 try {
                     m.setDataSource(outputFile);
                 }
