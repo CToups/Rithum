@@ -36,26 +36,15 @@ public class MainActivity extends Activity {
     private Switch myLoopSwitch;
 
 
-    /*
-    File vPath = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/Android/data/Rithum-VoiceMemo's/");
-    File mPath = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/Android/data/Rithum-MusicRecordings/");
-    */
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //play=(Button)findViewById(R.id.button3);
-        //stop=(Button)findViewById(R.id.button2);
-        //record=(Button)findViewById(R.id.button);
-
         //Loop switch stuff. Leaving things that don't hurt. Commenting those that do.
         //It'd be nice to eventually get this working.
-        //Problem is when you hit stop it crashes.
+        //UPDATE: Got the loop switch working. Just ignore this stuff for now, don't delete though
         myLoopSwitch = (Switch) findViewById(R.id.myLoopSwitch);
         myLoopSwitch.setChecked(false);
         myLoopSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -73,8 +62,6 @@ public class MainActivity extends Activity {
                 */
             }
         });
-
-
 
         //Creates the two directories where audio files will be saved
         File vDir = new File(Environment.getExternalStorageDirectory()+
@@ -109,14 +96,9 @@ public class MainActivity extends Activity {
         //myAudioRecorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
 
 
-        //Loop stuff
-
-
-
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 //What if we haven't set the file name?
                 if (outputFile == null) {
@@ -163,7 +145,9 @@ public class MainActivity extends Activity {
                 if (m.isLooping() == true) {
                     myLoopSwitch.setChecked(false);
                     m.setLooping(false);
-                } else {
+                }
+
+                else if (currentlyRecording) {
                     myAudioRecorder.stop();
                     myAudioRecorder.reset();
 
@@ -174,6 +158,8 @@ public class MainActivity extends Activity {
                     //myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
                     myAudioRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
                     //myAudioRecorder.setAudioEncoder(MediaRecorder.getAudioSourceMax());
+
+                    currentlyRecording = false;
                 }
 
                 //ImageButton Stuff
@@ -200,11 +186,10 @@ public class MainActivity extends Activity {
             public void onClick(View v) throws IllegalArgumentException,SecurityException,IllegalStateException {
 
 
-                //Just doing this for looks. It's pointless really. Delete this
+                //Just leave this here for now John
                 //******************
-                myLoopSwitch.setChecked(true);
+               // myLoopSwitch.setChecked(true);
                 //******************
-
 
                 currentlyRecording = false;
 
@@ -227,7 +212,9 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                 }
 
-                m.setLooping(true);
+                if (myLoopSwitch.isChecked()){
+                    m.setLooping(true);
+                }
 
                 try {
                     m.prepare();
@@ -235,7 +222,6 @@ public class MainActivity extends Activity {
                 catch (IOException e) {
                     e.printStackTrace();
                 }
-
 
                 m.start();
                 Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_SHORT).show();
@@ -313,10 +299,6 @@ public class MainActivity extends Activity {
                 //Ok so outputTemp is definitely being stored properly, this log proves it
                 Log.w("audiocapture", outputTemp);
 
-                //Crazy Test
-                // outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + outputTemp + ".3gp";
-                // myAudioRecorder.setOutputFile(outputFile);
-
                 outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/Rithum_Memo's/" + outputTemp + ".mp4";
                 myAudioRecorder.setOutputFile(outputFile);
@@ -327,18 +309,12 @@ public class MainActivity extends Activity {
             public void onClick(DialogInterface dialog, int whichButton) {
                 outputTemp = input.getText().toString();
 
-
                 //Change Audio Quality (for the better)
                 myAudioRecorder.setAudioEncodingBitRate(128000);
                 myAudioRecorder.setAudioSamplingRate(44100);
 
-
                 //Ok so outputTemp is definitely being stored properly, this log proves it
                 Log.w("audiocapture", outputTemp);
-
-                //Crazy Test
-                // outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + outputTemp + ".3gp";
-                // myAudioRecorder.setOutputFile(outputFile);
 
                 outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() +
                         "/Rithum_Audio/" + outputTemp + ".mp4";
