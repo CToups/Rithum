@@ -4,7 +4,7 @@ An single track android audio recording / looping application. Featuring differe
   * Voice Memo (poor quality, but very small filesize)
   * Audio (great quality, but large filesize)
   
-Currently under construction
+Will be available on google play soon.
 
 Jon Driggers
 Chris Toups
